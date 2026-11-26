@@ -1,9 +1,58 @@
 import Foundation
 
+enum FolderTransferOperation: String {
+    case copy
+    case move
+
+    var verb: String { self == .copy ? "复制" : "移动" }
+    var menuTitle: String { verb + "到" }
+}
+
+enum FolderTransferDestination: String, CaseIterable {
+    case choose, downloads, documents, desktop, movies, pictures, music, home, applications
+
+    var menuTitle: String {
+        switch self {
+        case .choose: return "选取文件夹…"
+        case .downloads: return "下载"
+        case .documents: return "文稿"
+        case .desktop: return "桌面"
+        case .movies: return "电影"
+        case .pictures: return "图片"
+        case .music: return "音乐"
+        case .home: return "个人文件夹"
+        case .applications: return "应用程序"
+        }
+    }
+
+    var directoryURL: URL? {
+        if self == .home {
+            return FileManager.default.homeDirectoryForCurrentUser
+        }
+        guard let directory = searchPathDirectory else { return nil }
+        let domain: FileManager.SearchPathDomainMask = self == .applications ? .localDomainMask : .userDomainMask
+        return FileManager.default.urls(for: directory, in: domain).first
+    }
+
+    private var searchPathDirectory: FileManager.SearchPathDirectory? {
+        switch self {
+        case .choose, .home: return nil
+        case .downloads: return .downloadsDirectory
+        case .documents: return .documentDirectory
+        case .desktop: return .desktopDirectory
+        case .movies: return .moviesDirectory
+        case .pictures: return .picturesDirectory
+        case .music: return .musicDirectory
+        case .applications: return .applicationDirectory
+        }
+    }
+}
+
 enum FinderCommand: Equatable {
     case newFile(templateID: String, directory: URL)
     case cut
     case paste(directory: URL)
+    case transferFolder(source: URL, operation: FolderTransferOperation, destination: FolderTransferDestination)
 }
 
 enum FinderCommandError: LocalizedError {
@@ -15,6 +64,7 @@ enum FinderCommandError: LocalizedError {
     case duplicateQueryItem(String)
     case emptyQueryItem(String)
     case invalidDirectoryPath(String)
+    case invalidQueryItem(String)
 
     var errorDescription: String? {
         switch self {
@@ -34,6 +84,8 @@ enum FinderCommandError: LocalizedError {
             return "rckit URL 参数为空：\(name)"
         case let .invalidDirectoryPath(path):
             return "目录必须是绝对路径：\(path)"
+        case let .invalidQueryItem(name):
+            return "rckit URL 参数无效：\(name)"
         }
     }
 }
@@ -65,6 +117,14 @@ enum FinderCommandURL {
             components.host = "paste"
             components.queryItems = [
                 URLQueryItem(name: "dir", value: directory.standardizedFileURL.path)
+            ]
+
+        case let .transferFolder(source, operation, destination):
+            components.host = "transfer-folder"
+            components.queryItems = [
+                URLQueryItem(name: "source", value: source.standardizedFileURL.path),
+                URLQueryItem(name: "operation", value: operation.rawValue),
+                URLQueryItem(name: "destination", value: destination.rawValue)
             ]
         }
 
@@ -104,6 +164,18 @@ enum FinderCommandURL {
             let directory = try directoryURL(from: rawDirectory)
             return .paste(directory: directory)
 
+        case "transfer-folder":
+            let source = try directoryURL(from: singleValue(named: "source", in: queryItems))
+            let rawOperation = try singleValue(named: "operation", in: queryItems)
+            let rawDestination = try singleValue(named: "destination", in: queryItems)
+            guard let operation = FolderTransferOperation(rawValue: rawOperation) else {
+                throw FinderCommandError.invalidQueryItem("operation")
+            }
+            guard let destination = FolderTransferDestination(rawValue: rawDestination) else {
+                throw FinderCommandError.invalidQueryItem("destination")
+            }
+            return .transferFolder(source: source, operation: operation, destination: destination)
+
         default:
             throw FinderCommandError.unsupportedHost(host)
         }
@@ -126,7 +198,7 @@ enum FinderCommandURL {
     }
 
     private static func directoryURL(from path: String) throws -> URL {
-        guard path.hasPrefix("/") else {
+        guard path.hasPrefix("/"), !path.utf8.contains(0) else {
             throw FinderCommandError.invalidDirectoryPath(path)
         }
 
@@ -150,6 +222,16 @@ enum FinderCommandURLSelfTest {
 
             if !roundTrip(
                 .newFile(templateID: "txt", directory: directory),
+                expectedPath: expectedPath
+            ) {
+                return false
+            }
+
+            if !roundTrip(
+                .transferFolder(source: directory, operation: .copy, destination: .choose),
+                expectedPath: expectedPath
+            ) || !roundTrip(
+                .transferFolder(source: directory, operation: .move, destination: .downloads),
                 expectedPath: expectedPath
             ) {
                 return false
@@ -188,6 +270,13 @@ enum FinderCommandURLSelfTest {
 
             case (.cut, .cut):
                 return true
+
+            case let (.transferFolder(lhsSource, lhsOperation, lhsDestination),
+                      .transferFolder(rhsSource, rhsOperation, rhsDestination)):
+                return lhsSource.standardizedFileURL.path == rhsSource.path
+                    && expectedPath == rhsSource.path
+                    && lhsOperation == rhsOperation
+                    && lhsDestination == rhsDestination
 
             default:
                 print("FinderCommandURLSelfTest: 指令类型不一致，URL = \(url.absoluteString)")

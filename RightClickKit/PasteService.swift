@@ -41,6 +41,57 @@ final class PasteService {
         }
     }
 
+    func transferFolder(_ source: URL, to directory: URL, move: Bool) {
+        queue.async {
+            let verb = move ? "移动" : "复制"
+            let source = source.standardizedFileURL
+            let target = directory.standardizedFileURL
+            do {
+                let values = try source.resourceValues(forKeys: [.isDirectoryKey, .isSymbolicLinkKey])
+                guard source.path != "/", values.isDirectory == true, values.isSymbolicLink != true else {
+                    self.notifyFolderTransfer(title: "\(verb)失败", body: "源项目必须是可\(verb)的文件夹。")
+                    return
+                }
+
+                // Foundation 通过文件系统识别实际目录，也覆盖大小写不同和符号链接的目标路径。
+                let resolvedTarget = target.resolvingSymlinksInPath()
+                var relationship: FileManager.URLRelationship = .other
+                try self.fileManager.getRelationship(&relationship, ofDirectoryAt: source, toItemAt: resolvedTarget)
+                guard relationship == .other else {
+                    self.notifyFolderTransfer(title: "\(verb)失败", body: "不能将文件夹\(verb)到它自己或其子文件夹。")
+                    return
+                }
+                if move {
+                    try self.fileManager.getRelationship(
+                        &relationship, ofDirectoryAt: source.deletingLastPathComponent(), toItemAt: resolvedTarget
+                    )
+                    if relationship == .same {
+                        self.notifyFolderTransfer(title: "无需移动", body: "文件夹已经在目标位置。")
+                        return
+                    }
+                }
+
+                var targetIsDirectory: ObjCBool = false
+                guard self.fileManager.fileExists(atPath: target.path, isDirectory: &targetIsDirectory),
+                      targetIsDirectory.boolValue else {
+                    self.notifyFolderTransfer(title: "\(verb)失败", body: "目标位置不是可访问的文件夹。")
+                    return
+                }
+
+                let result = try self.transfer(source: source, sourceIsDirectory: true, targetDirectory: target, move: move)
+                self.notifyFolderTransfer(title: "已\(verb)文件夹", body: result.path)
+            } catch {
+                self.notifyFolderTransfer(title: "\(verb)失败", body: error.localizedDescription)
+            }
+        }
+    }
+
+    private func notifyFolderTransfer(title: String, body: String) {
+        DispatchQueue.main.async {
+            NotificationService.shared.notify(title: title, body: body)
+        }
+    }
+
     private func performPaste(
         sourceURLs: [URL],
         to directory: URL,

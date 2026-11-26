@@ -18,6 +18,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, Obse
     private var newFileService: NewFileService?
     private var pasteService: PasteService?
     private var cutChangeCount = -1
+    private var folderTransferDialogActive = false
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         NotificationService.shared.configure()
@@ -97,7 +98,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, Obse
     }
 
     func windowWillClose(_ notification: Notification) {
-        NSApp.setActivationPolicy(.accessory)
+        if !folderTransferDialogActive {
+            NSApp.setActivationPolicy(.accessory)
+        }
     }
 
     func setTemplateEnabled(_ enabled: Bool, for id: String) {
@@ -229,6 +232,81 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, Obse
 
         case let .paste(directory):
             handlePaste(directory: directory)
+
+        case let .transferFolder(source, operation, destination):
+            handleFolderTransfer(source: source, operation: operation, destination: destination)
+        }
+    }
+
+    private func handleFolderTransfer(
+        source: URL,
+        operation: FolderTransferOperation,
+        destination: FolderTransferDestination
+    ) {
+        dispatchPrecondition(condition: .onQueue(.main))
+
+        guard !folderTransferDialogActive else {
+            NotificationService.shared.notify(title: "操作未执行", body: "请先完成或取消当前文件夹操作。")
+            return
+        }
+        guard let pasteService else {
+            NotificationService.shared.notify(title: "操作失败", body: "文件操作服务尚未就绪。")
+            return
+        }
+
+        let shouldMove = operation == .move
+        let verb = operation.verb
+        let previousApplication = NSWorkspace.shared.frontmostApplication
+        folderTransferDialogActive = true
+        NSApp.setActivationPolicy(.regular)
+        NSApp.activate(ignoringOtherApps: true)
+
+        if destination == .choose {
+            let panel = NSOpenPanel()
+            panel.title = "选择文件夹的\(verb)位置"
+            panel.message = "将以下文件夹\(verb)到所选位置：\n\(source.path)"
+            panel.prompt = "\(verb)到此处"
+            panel.canChooseFiles = false
+            panel.canChooseDirectories = true
+            panel.allowsMultipleSelection = false
+            panel.begin { [weak self] response in
+                guard let self else { return }
+                let target = response == .OK ? panel.url : nil
+                self.finishFolderTransferDialog(previousApplication: previousApplication)
+                if let target {
+                    pasteService.transferFolder(source, to: target, move: shouldMove)
+                }
+            }
+            return
+        }
+
+        guard let target = destination.directoryURL else {
+            finishFolderTransferDialog(previousApplication: previousApplication)
+            NotificationService.shared.notify(title: "操作失败", body: "无法找到目标文件夹。")
+            return
+        }
+
+        let alert = NSAlert()
+        alert.messageText = "确认\(verb)文件夹？"
+        alert.informativeText = "源文件夹：\(source.path)\n目标位置：\(target.path)"
+        alert.addButton(withTitle: verb)
+        alert.addButton(withTitle: "取消")
+        alert.buttons[0].keyEquivalent = ""
+        alert.buttons[1].keyEquivalent = "\r"
+        let response = alert.runModal()
+        finishFolderTransferDialog(previousApplication: previousApplication)
+        if response == .alertFirstButtonReturn {
+            pasteService.transferFolder(source, to: target, move: shouldMove)
+        }
+    }
+
+    private func finishFolderTransferDialog(previousApplication: NSRunningApplication?) {
+        folderTransferDialogActive = false
+        if settingsWindow?.isVisible != true {
+            NSApp.setActivationPolicy(.accessory)
+        }
+        if NSApp.isActive, previousApplication?.processIdentifier != ProcessInfo.processInfo.processIdentifier {
+            previousApplication?.activate()
         }
     }
 

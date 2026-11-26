@@ -15,12 +15,15 @@ final class FinderSync: FIFinderSync {
         // Finder Sync 的菜单跨进程代理，representedObject 在 action 里可能丢失，
         // 因此这里只依赖 tag，不依赖 representedObject 或 target 传值。
         static let newFileBase = 1000
+        static let copyFolderBase = 2000
+        static let moveFolderBase = 3000
     }
 
     private let transport: CommandTransport
     private let newFileLog = Logger(subsystem: "com.hkz.RightClickKit.Finder", category: "NewFile")
     private let templates: [FileTemplate]
     private let templateIcons: [NSImage]
+    private let destinationIcons: [NSImage]
     private let templateLoadFailed: Bool
     private var disabledTemplateIDs: Set<String> = []
 
@@ -31,6 +34,7 @@ final class FinderSync: FIFinderSync {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         self.transport = URLSchemeCommandTransport(applicationURL: applicationURL)
+        self.destinationIcons = FolderTransferDestination.allCases.map(Self.makeDestinationIcon)
 
         do {
             let templates = try TemplateCatalog.load()
@@ -185,27 +189,7 @@ final class FinderSync: FIFinderSync {
             accessibilityDescription: nil
         )?.withSymbolConfiguration(configuration)
 
-        let size = NSSize(width: 18, height: 18)
-        let icon = NSImage(size: size)
-        icon.isTemplate = false
-
-        // 访达跨进程接收菜单，需要各显示倍率的实际像素和相同的逻辑尺寸。
-        for scale in [2, 1, 3] {
-            let pixelSide = Int(size.width) * scale
-            guard let canvas = CGContext(
-                data: nil,
-                width: pixelSide,
-                height: pixelSide,
-                bitsPerComponent: 8,
-                bytesPerRow: 0,
-                space: CGColorSpaceCreateDeviceRGB(),
-                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-            ) else { continue }
-
-            canvas.scaleBy(x: CGFloat(scale), y: CGFloat(scale))
-            NSGraphicsContext.saveGraphicsState()
-            NSGraphicsContext.current = NSGraphicsContext(cgContext: canvas, flipped: false)
-
+        return makeMenuIcon { _ in
             let sheet = NSBezierPath()
             sheet.move(to: NSPoint(x: 4, y: 1))
             sheet.line(to: NSPoint(x: 14, y: 1))
@@ -246,14 +230,7 @@ final class FinderSync: FIFinderSync {
                 ))
             }
 
-            NSGraphicsContext.restoreGraphicsState()
-            if let pixels = canvas.makeImage() {
-                let bitmap = NSBitmapImageRep(cgImage: pixels)
-                bitmap.size = size
-                icon.addRepresentation(bitmap)
-            }
         }
-        return icon
     }
 
     private func makeItemsMenu() -> NSMenu {
@@ -276,17 +253,109 @@ final class FinderSync: FIFinderSync {
         cutItem.tag = MenuTag.cut
         menu.addItem(cutItem)
 
-        if pasteboardHasFileURLs, selectedSingleFolderURL() != nil {
-            let pasteItem = NSMenuItem(
-                title: "粘贴到此文件夹",
-                action: #selector(pasteIntoSelectedFolder(_:)),
-                keyEquivalent: ""
-            )
-            pasteItem.tag = MenuTag.pasteIntoFolder
-            menu.addItem(pasteItem)
+        if selectedSingleFolderURL() != nil {
+            if pasteboardHasFileURLs {
+                let pasteItem = NSMenuItem(
+                    title: "粘贴到此文件夹",
+                    action: #selector(pasteIntoSelectedFolder(_:)),
+                    keyEquivalent: ""
+                )
+                pasteItem.tag = MenuTag.pasteIntoFolder
+                menu.addItem(pasteItem)
+            }
+
+            for (operation, base) in [
+                (FolderTransferOperation.copy, MenuTag.copyFolderBase),
+                (.move, MenuTag.moveFolderBase)
+            ] {
+                let title = operation.menuTitle
+                let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+                let submenu = NSMenu(title: title)
+                submenu.autoenablesItems = false
+                for (index, destination) in FolderTransferDestination.allCases.enumerated() {
+                    let destinationItem = NSMenuItem(
+                        title: destination.menuTitle,
+                        action: #selector(transferSelectedFolder(_:)),
+                        keyEquivalent: ""
+                    )
+                    destinationItem.tag = base + index
+                    destinationItem.image = destinationIcons[index]
+                    if #available(macOS 27.0, *) {
+                        destinationItem.preferredImageVisibility = .visible
+                    }
+                    submenu.addItem(destinationItem)
+                }
+                item.submenu = submenu
+                menu.addItem(item)
+            }
         }
 
         return menu
+    }
+
+    private static func makeDestinationIcon(for destination: FolderTransferDestination) -> NSImage {
+        let original = destination.directoryURL.map { NSWorkspace.shared.icon(forFile: $0.path) }
+            ?? NSImage(named: NSImage.folderName)
+        return makeMenuIcon { bounds in
+            original?.draw(in: bounds)
+        }
+    }
+
+    private static func makeMenuIcon(draw: (NSRect) -> Void) -> NSImage {
+        // 访达跨进程接收菜单，需要各显示倍率的实际像素和相同的逻辑尺寸。
+        let size = NSSize(width: 18, height: 18)
+        let icon = NSImage(size: size)
+        icon.isTemplate = false
+        for scale in [2, 1, 3] {
+            let side = Int(size.width) * scale
+            guard let canvas = CGContext(
+                data: nil,
+                width: side,
+                height: side,
+                bitsPerComponent: 8,
+                bytesPerRow: 0,
+                space: CGColorSpaceCreateDeviceRGB(),
+                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+            ) else { continue }
+            canvas.scaleBy(x: CGFloat(scale), y: CGFloat(scale))
+            NSGraphicsContext.saveGraphicsState()
+            NSGraphicsContext.current = NSGraphicsContext(cgContext: canvas, flipped: false)
+            draw(NSRect(origin: .zero, size: size))
+            NSGraphicsContext.restoreGraphicsState()
+            if let pixels = canvas.makeImage() {
+                let bitmap = NSBitmapImageRep(cgImage: pixels)
+                bitmap.size = size
+                icon.addRepresentation(bitmap)
+            }
+        }
+        return icon
+    }
+
+    @objc private func transferSelectedFolder(_ sender: Any?) {
+        guard let item = sender as? NSMenuItem,
+              let urls = FIFinderSyncController.default().selectedItemURLs(),
+              urls.count == 1,
+              let source = urls.first else {
+            return
+        }
+
+        let operation: FolderTransferOperation
+        let index: Int
+        if (MenuTag.copyFolderBase..<MenuTag.moveFolderBase).contains(item.tag) {
+            operation = .copy
+            index = item.tag - MenuTag.copyFolderBase
+        } else {
+            operation = .move
+            index = item.tag - MenuTag.moveFolderBase
+        }
+        guard FolderTransferDestination.allCases.indices.contains(index) else {
+            return
+        }
+        transport.send(.transferFolder(
+            source: source,
+            operation: operation,
+            destination: FolderTransferDestination.allCases[index]
+        ))
     }
 
     private func selectedSingleFolderURL() -> URL? {
