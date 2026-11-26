@@ -28,6 +28,7 @@
 		A10000000000000000000014 /* NewFileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000014 /* NewFileSettingsView.swift */; };
 		A10000000000000000000015 /* TemplateSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* TemplateSelection.swift */; };
 		A10000000000000000000016 /* TemplateSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* TemplateSelection.swift */; };
+		A10000000000000000000017 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000016 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		A20000000000000000000013 /* RightClickKitFinder.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RightClickKitFinder.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20000000000000000000014 /* NewFileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFileSettingsView.swift; sourceTree = "<group>"; };
 		A20000000000000000000015 /* TemplateSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSelection.swift; sourceTree = "<group>"; };
+		A20000000000000000000016 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				A20000000000000000000014 /* NewFileSettingsView.swift */,
 				A2000000000000000000000D /* Info.plist */,
 				A2000000000000000000000E /* RightClickKit.entitlements */,
+				A20000000000000000000016 /* Assets.xcassets */,
 				A30000000000000000000005 /* Resources */,
 			);
 			path = RightClickKit;
@@ -234,6 +237,7 @@
 			files = (
 				A1000000000000000000000E /* templates.json in Resources */,
 				A10000000000000000000010 /* Templates in Resources */,
+				A10000000000000000000017 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,12 +324,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = RightClickKit/RightClickKit.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = RightClickKit/Info.plist;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hkz.RightClickKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -335,12 +340,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = RightClickKit/RightClickKit.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = RightClickKit/Info.plist;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hkz.RightClickKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -351,12 +357,12 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = RightClickKitFinder/RightClickKitFinder.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = RightClickKitFinder/Info.plist;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hkz.RightClickKit.Finder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -368,12 +374,12 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = RightClickKitFinder/RightClickKitFinder.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = RightClickKitFinder/Info.plist;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hkz.RightClickKit.Finder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

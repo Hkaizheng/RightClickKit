@@ -2,6 +2,15 @@
 
 RightClickKit 是一个 macOS 菜单栏应用，配合 Finder Sync 扩展提供新建文件、复制、剪切和粘贴操作。项目最低支持 macOS 13.0，使用 Swift 5 语言模式。
 
+## 下载和安装
+
+1. 下载最新版本的 DMG，支持 macOS 13 及以上版本、Apple 芯片和 Intel 芯片。[RightClickKit Releases](https://github.com/Hkaizheng/RightClickKit/releases/latest)
+2. 打开 DMG，将 RightClickKit 拖入「应用程序」。若已有旧版，先退出旧版，再替换。
+3. 从「应用程序」打开 RightClickKit。当前试用版使用临时签名，尚未通过 Apple 公证。如果 macOS 拦截，确认下载来源后，前往「系统设置 → 隐私与安全性」查看是否有「仍要打开」选项。[Apple 关于打开 App 的说明](https://support.apple.com/zh-cn/102445)
+4. 在 RightClickKit 的菜单栏菜单中选择「打开 Finder 扩展设置」，启用扩展。然后在访达文件夹空白处右键，展开「新建文件」。
+
+## 工程
+
 | Target | Bundle ID | 沙盒 |
 | --- | --- | --- |
 | RightClickKit | `com.hkz.RightClickKit` | 关闭 |
@@ -50,7 +59,7 @@ ls -l "$APPEX/Contents/Resources/templates.json"
 
 双击 `/Applications/RightClickKit.app` 打开设置，或点击菜单栏图标并选择“设置…”。十种文件类型默认全部启用，可通过开关选择 Finder 右键菜单中显示的类型。更改会立即保存，下一次打开 Finder 右键菜单时生效。全部关闭时，“新建文件”子菜单将隐藏。点击“恢复默认”可重新启用全部类型。
 
-安装在 `/Applications` 的版本使用本机签名。开发时 Xcode 或命令行生成的 App 位于各自的构建目录，测试 Finder 扩展和 `rckit://` 时应确认只有准备测试的版本被系统注册和使用，避免安装版与开发版互相干扰。
+开发时 Xcode 或命令行生成的 App 位于各自的构建目录，测试 Finder 扩展和 `rckit://` 时应确认只有准备测试的版本被系统注册和使用，避免安装版与开发版互相干扰。
 
 ## 启用 Finder 扩展
 
