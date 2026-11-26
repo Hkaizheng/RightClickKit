@@ -1,0 +1,6 @@
+.DS_Store
+/.yonbuddy/
+/build/
+/DerivedData/
+xcuserdata/
+*.xcuserstate

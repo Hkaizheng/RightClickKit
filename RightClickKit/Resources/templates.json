@@ -1,0 +1,72 @@
+[
+  {
+    "id": "txt",
+    "title": "文本文档",
+    "ext": "txt",
+    "template": null,
+    "defaultName": "未命名"
+  },
+  {
+    "id": "md",
+    "title": "Markdown 文档",
+    "ext": "md",
+    "template": null,
+    "defaultName": "未命名"
+  },
+  {
+    "id": "json",
+    "title": "JSON 文件",
+    "ext": "json",
+    "template": null,
+    "defaultName": "未命名"
+  },
+  {
+    "id": "html",
+    "title": "HTML 文件",
+    "ext": "html",
+    "template": null,
+    "defaultName": "未命名"
+  },
+  {
+    "id": "csv",
+    "title": "CSV 文件",
+    "ext": "csv",
+    "template": null,
+    "defaultName": "未命名"
+  },
+  {
+    "id": "py",
+    "title": "Python 脚本",
+    "ext": "py",
+    "template": null,
+    "defaultName": "未命名"
+  },
+  {
+    "id": "sh",
+    "title": "Shell 脚本",
+    "ext": "sh",
+    "template": null,
+    "defaultName": "未命名"
+  },
+  {
+    "id": "docx",
+    "title": "Word 文档",
+    "ext": "docx",
+    "template": "blank.docx",
+    "defaultName": "未命名"
+  },
+  {
+    "id": "xlsx",
+    "title": "Excel 工作簿",
+    "ext": "xlsx",
+    "template": "blank.xlsx",
+    "defaultName": "未命名"
+  },
+  {
+    "id": "pptx",
+    "title": "PowerPoint 演示文稿",
+    "ext": "pptx",
+    "template": "blank.pptx",
+    "defaultName": "未命名"
+  }
+]

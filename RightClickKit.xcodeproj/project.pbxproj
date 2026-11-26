@@ -1,0 +1,416 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* RightClickKitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* RightClickKitApp.swift */; };
+		A10000000000000000000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* AppDelegate.swift */; };
+		A10000000000000000000003 /* MenuBarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* MenuBarMenuView.swift */; };
+		A10000000000000000000004 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* NotificationService.swift */; };
+		A10000000000000000000005 /* NewFileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* NewFileService.swift */; };
+		A10000000000000000000006 /* PasteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* PasteService.swift */; };
+		A10000000000000000000007 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* FinderSync.swift */; };
+		A10000000000000000000008 /* FileTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* FileTemplate.swift */; };
+		A10000000000000000000009 /* FinderCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* FinderCommand.swift */; };
+		A1000000000000000000000A /* CommandTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* CommandTransport.swift */; };
+		A1000000000000000000000B /* FileTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* FileTemplate.swift */; };
+		A1000000000000000000000C /* FinderCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* FinderCommand.swift */; };
+		A1000000000000000000000D /* CommandTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* CommandTransport.swift */; };
+		A1000000000000000000000E /* templates.json in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000B /* templates.json */; };
+		A1000000000000000000000F /* templates.json in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000B /* templates.json */; };
+		A10000000000000000000010 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000C /* Templates */; };
+		A10000000000000000000011 /* FinderSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A20000000000000000000011 /* FinderSync.framework */; };
+		A10000000000000000000012 /* FinderSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A20000000000000000000011 /* FinderSync.framework */; };
+		A10000000000000000000013 /* RightClickKitFinder.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A20000000000000000000013 /* RightClickKitFinder.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A10000000000000000000014 /* NewFileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000014 /* NewFileSettingsView.swift */; };
+		A10000000000000000000015 /* TemplateSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* TemplateSelection.swift */; };
+		A10000000000000000000016 /* TemplateSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* TemplateSelection.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A70000000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A60000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A50000000000000000000002;
+			remoteInfo = RightClickKitFinder;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A40000000000000000000004 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (A10000000000000000000013 /* RightClickKitFinder.appex in Embed App Extensions */, );
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A20000000000000000000001 /* RightClickKitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightClickKitApp.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* MenuBarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarMenuView.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		A20000000000000000000005 /* NewFileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFileService.swift; sourceTree = "<group>"; };
+		A20000000000000000000006 /* PasteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteService.swift; sourceTree = "<group>"; };
+		A20000000000000000000007 /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
+		A20000000000000000000008 /* FileTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTemplate.swift; sourceTree = "<group>"; };
+		A20000000000000000000009 /* FinderCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderCommand.swift; sourceTree = "<group>"; };
+		A2000000000000000000000A /* CommandTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandTransport.swift; sourceTree = "<group>"; };
+		A2000000000000000000000B /* templates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = templates.json; sourceTree = "<group>"; };
+		A2000000000000000000000C /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
+		A2000000000000000000000D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2000000000000000000000E /* RightClickKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RightClickKit.entitlements; sourceTree = "<group>"; };
+		A2000000000000000000000F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20000000000000000000010 /* RightClickKitFinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RightClickKitFinder.entitlements; sourceTree = "<group>"; };
+		A20000000000000000000011 /* FinderSync.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinderSync.framework; path = System/Library/Frameworks/FinderSync.framework; sourceTree = SDKROOT; };
+		A20000000000000000000012 /* RightClickKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RightClickKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000000000000000000013 /* RightClickKitFinder.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RightClickKitFinder.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000000000000000000014 /* NewFileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFileSettingsView.swift; sourceTree = "<group>"; };
+		A20000000000000000000015 /* TemplateSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSelection.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A40000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A10000000000000000000011 /* FinderSync.framework in Frameworks */, );
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A40000000000000000000006 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A10000000000000000000012 /* FinderSync.framework in Frameworks */, );
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A30000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A30000000000000000000002 /* RightClickKit */,
+				A30000000000000000000003 /* RightClickKitFinder */,
+				A30000000000000000000004 /* Shared */,
+				A30000000000000000000006 /* Frameworks */,
+				A30000000000000000000007 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A30000000000000000000002 /* RightClickKit */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000001 /* RightClickKitApp.swift */,
+				A20000000000000000000002 /* AppDelegate.swift */,
+				A20000000000000000000003 /* MenuBarMenuView.swift */,
+				A20000000000000000000004 /* NotificationService.swift */,
+				A20000000000000000000005 /* NewFileService.swift */,
+				A20000000000000000000006 /* PasteService.swift */,
+				A20000000000000000000014 /* NewFileSettingsView.swift */,
+				A2000000000000000000000D /* Info.plist */,
+				A2000000000000000000000E /* RightClickKit.entitlements */,
+				A30000000000000000000005 /* Resources */,
+			);
+			path = RightClickKit;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000003 /* RightClickKitFinder */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000007 /* FinderSync.swift */,
+				A2000000000000000000000F /* Info.plist */,
+				A20000000000000000000010 /* RightClickKitFinder.entitlements */,
+			);
+			path = RightClickKitFinder;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000004 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000008 /* FileTemplate.swift */,
+				A20000000000000000000009 /* FinderCommand.swift */,
+				A2000000000000000000000A /* CommandTransport.swift */,
+				A20000000000000000000015 /* TemplateSelection.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000005 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A2000000000000000000000B /* templates.json */,
+				A2000000000000000000000C /* Templates */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000006 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (A20000000000000000000011 /* FinderSync.framework */, );
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000007 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000012 /* RightClickKit.app */,
+				A20000000000000000000013 /* RightClickKitFinder.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50000000000000000000001 /* RightClickKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A90000000000000000000002 /* Build configuration list for PBXNativeTarget "RightClickKit" */;
+			buildPhases = (
+				A40000000000000000000001 /* Sources */,
+				A40000000000000000000002 /* Frameworks */,
+				A40000000000000000000003 /* Resources */,
+				A40000000000000000000004 /* Embed App Extensions */,
+			);
+			buildRules = ();
+			dependencies = (A70000000000000000000001 /* PBXTargetDependency */, );
+			name = RightClickKit;
+			productName = RightClickKit;
+			productReference = A20000000000000000000012 /* RightClickKit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A50000000000000000000002 /* RightClickKitFinder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A90000000000000000000003 /* Build configuration list for PBXNativeTarget "RightClickKitFinder" */;
+			buildPhases = (
+				A40000000000000000000005 /* Sources */,
+				A40000000000000000000006 /* Frameworks */,
+				A40000000000000000000007 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = RightClickKitFinder;
+			productName = RightClickKitFinder;
+			productReference = A20000000000000000000013 /* RightClickKitFinder.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A60000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				TargetAttributes = {
+					A50000000000000000000001 = {ProvisioningStyle = Automatic; };
+					A50000000000000000000002 = {ProvisioningStyle = Automatic; };
+				};
+			};
+			buildConfigurationList = A90000000000000000000001 /* Build configuration list for PBXProject "RightClickKit" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base, );
+			mainGroup = A30000000000000000000001;
+			productRefGroup = A30000000000000000000007 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50000000000000000000001 /* RightClickKit */,
+				A50000000000000000000002 /* RightClickKitFinder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A40000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000000E /* templates.json in Resources */,
+				A10000000000000000000010 /* Templates in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A40000000000000000000007 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A1000000000000000000000F /* templates.json in Resources */, );
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A40000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000001 /* RightClickKitApp.swift in Sources */,
+				A10000000000000000000002 /* AppDelegate.swift in Sources */,
+				A10000000000000000000003 /* MenuBarMenuView.swift in Sources */,
+				A10000000000000000000004 /* NotificationService.swift in Sources */,
+				A10000000000000000000005 /* NewFileService.swift in Sources */,
+				A10000000000000000000006 /* PasteService.swift in Sources */,
+				A10000000000000000000014 /* NewFileSettingsView.swift in Sources */,
+				A10000000000000000000008 /* FileTemplate.swift in Sources */,
+				A10000000000000000000009 /* FinderCommand.swift in Sources */,
+				A1000000000000000000000A /* CommandTransport.swift in Sources */,
+				A10000000000000000000015 /* TemplateSelection.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A40000000000000000000005 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000007 /* FinderSync.swift in Sources */,
+				A1000000000000000000000B /* FileTemplate.swift in Sources */,
+				A1000000000000000000000C /* FinderCommand.swift in Sources */,
+				A1000000000000000000000D /* CommandTransport.swift in Sources */,
+				A10000000000000000000016 /* TemplateSelection.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A70000000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A50000000000000000000002 /* RightClickKitFinder */;
+			targetProxy = A70000000000000000000002 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A80000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A80000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A80000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RightClickKit/RightClickKit.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RightClickKit/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hkz.RightClickKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A80000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RightClickKit/RightClickKit.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RightClickKit/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hkz.RightClickKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A80000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = RightClickKitFinder/RightClickKitFinder.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RightClickKitFinder/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hkz.RightClickKit.Finder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A80000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = RightClickKitFinder/RightClickKitFinder.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RightClickKitFinder/Info.plist;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hkz.RightClickKit.Finder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A90000000000000000000001 /* Build configuration list for PBXProject "RightClickKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A80000000000000000000001 /* Debug */,
+				A80000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A90000000000000000000002 /* Build configuration list for PBXNativeTarget "RightClickKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A80000000000000000000003 /* Debug */,
+				A80000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A90000000000000000000003 /* Build configuration list for PBXNativeTarget "RightClickKitFinder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A80000000000000000000005 /* Debug */,
+				A80000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A60000000000000000000001 /* Project object */;
+}
